@@ -20,7 +20,7 @@ Pré-requisitos
 - Banco de dados acessível por usuário com permissão para executar migrations
 Instalação e configuração
 1. Clone o repositório e entre na pasta do projeto:
-   git clone <URL_DO_REPOSITORIO>
+   git clone <[URL_DO_REPOSITORIO](https://github.com/camilafmmarcal/digital-store-api)>
    cd geracaotech-backend
 2. Instale as dependências:
    npm ci
