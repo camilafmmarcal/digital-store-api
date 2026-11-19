@@ -100,3 +100,6 @@ Banco de dados
 As migrations criam as tabelas users, categories, products, product_images, product_options e product_categories. Os relacionamentos incluem imagens e opções de produtos e associação muitos-para-muitos entre produtos e categorias.
 Licença
 ISC, conforme package.json.
+
+
+Projeto em equipe — Geração Tech 4.0 Alunos: Camila Fontenele Meira Marçal e Bruno Rafael Xavier Rodrigues Turma Online Full Stack
