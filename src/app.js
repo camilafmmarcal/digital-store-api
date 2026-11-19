@@ -1,6 +1,7 @@
 
 const express = require("express");
 const cors = require("cors");
+const helmet = require("helmet");
 const swaggerUi = require("swagger-ui-express");
 
 const swaggerSpec = require("./config/swagger");
@@ -11,7 +12,37 @@ const productRoutes = require("./routes/productRoutes");
 
 const app = express();
 
-app.use(cors());
+// Cabeçalhos de segurança
+app.use(
+  helmet({
+    contentSecurityPolicy: false
+  })
+);
+
+// Origens autorizadas para o frontend
+const allowedOrigins = (
+  process.env.CORS_ORIGINS ||
+  "http://localhost:3000,http://localhost:5173"
+)
+  .split(",")
+  .map((origin) => origin.trim())
+  .filter(Boolean);
+
+app.use(
+  cors({
+    origin(origin, callback) {
+      if (!origin || allowedOrigins.includes(origin)) {
+        return callback(null, true);
+      }
+
+      return callback(null, false);
+    },
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    allowedHeaders: ["Content-Type", "Authorization"]
+  })
+);
+
+// Limita o tamanho do corpo JSON
 app.use(express.json({ limit: "100kb" }));
 
 app.get("/", (req, res) => {
@@ -29,7 +60,7 @@ app.use(
 
 // Especificação OpenAPI em JSON
 app.get("/api-docs.json", (req, res) => {
-  res.status(200).json(swaggerSpec);
+  return res.status(200).json(swaggerSpec);
 });
 
 // Rotas da API
